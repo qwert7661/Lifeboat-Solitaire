@@ -21,6 +21,7 @@ music_sound = pg.mixer.Sound('audio/lifeboat_music.mp3')
 music_sound.play(loops = -1)
 
 
+
 # ================================================================================================================= #
 #                                                     CARD CLASS                                                    #
 # ================================================================================================================= #
@@ -41,63 +42,63 @@ class Card(pg.sprite.Sprite):
 
 # Initializing Cards Objects
 if True:
-    cBack = Card(name='back', rank=0, suit='none', surf=pg.image.load('graphics/playing_cards/card_back.png'))
+    cBack = Card(name='back', rank=0, suit='none', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/card_back.png'))
 
-    c2h = Card(name='🂲2♥', rank=2, suit='heart', surf=pg.image.load('graphics/playing_cards/2_of_hearts.png'))
-    c3h = Card(name='🂳3♥', rank=3, suit='heart', surf=pg.image.load('graphics/playing_cards/3_of_hearts.png'))
-    c4h = Card(name='🂴4♥', rank=4, suit='heart', surf=pg.image.load('graphics/playing_cards/4_of_hearts.png'))
-    c5h = Card(name='🂵5♥', rank=5, suit='heart', surf=pg.image.load('graphics/playing_cards/5_of_hearts.png'))
-    c6h = Card(name='🂶6♥', rank=6, suit='heart', surf=pg.image.load('graphics/playing_cards/6_of_hearts.png'))
-    c7h = Card(name='🂷7♥', rank=7, suit='heart', surf=pg.image.load('graphics/playing_cards/7_of_hearts.png'))
-    c8h = Card(name='🂸8♥', rank=8, suit='heart', surf=pg.image.load('graphics/playing_cards/8_of_hearts.png'))
-    c9h = Card(name='🂹9♥', rank=9, suit='heart', surf=pg.image.load('graphics/playing_cards/9_of_hearts.png'))
-    c10h = Card(name='🂺10♥', rank=10, suit='heart', surf=pg.image.load('graphics/playing_cards/10_of_hearts.png'))
-    cJh = Card(name='🂻J♥', rank=11, suit='heart', surf=pg.image.load('graphics/playing_cards/jack_of_hearts2.png'))
-    cQh = Card(name='🂽Q♥', rank=12, suit='heart', surf=pg.image.load('graphics/playing_cards/queen_of_hearts2.png'))
-    cKh = Card(name='🂾K♥', rank=13, suit='heart', surf=pg.image.load('graphics/playing_cards/king_of_hearts2.png'))
-    cAh = Card(name='🂱A♥', rank=14, suit='heart', surf=pg.image.load('graphics/playing_cards/ace_of_hearts.png'))
+    c2h = Card(name='🂲2♥', rank=2, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/2_of_hearts.png'))
+    c3h = Card(name='🂳3♥', rank=3, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/3_of_hearts.png'))
+    c4h = Card(name='🂴4♥', rank=4, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/4_of_hearts.png'))
+    c5h = Card(name='🂵5♥', rank=5, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/5_of_hearts.png'))
+    c6h = Card(name='🂶6♥', rank=6, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/6_of_hearts.png'))
+    c7h = Card(name='🂷7♥', rank=7, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/7_of_hearts.png'))
+    c8h = Card(name='🂸8♥', rank=8, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/8_of_hearts.png'))
+    c9h = Card(name='🂹9♥', rank=9, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/9_of_hearts.png'))
+    c10h = Card(name='🂺10♥', rank=10, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/10_of_hearts.png'))
+    cJh = Card(name='🂻J♥', rank=11, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/jack_of_hearts2.png'))
+    cQh = Card(name='🂽Q♥', rank=12, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/queen_of_hearts2.png'))
+    cKh = Card(name='🂾K♥', rank=13, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/king_of_hearts2.png'))
+    cAh = Card(name='🂱A♥', rank=14, suit='heart', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/ace_of_hearts.png'))
 
-    c2d = Card(name='🃂2♦', rank=2, suit='diamond', surf=pg.image.load('graphics/playing_cards/2_of_diamonds.png'))
-    c3d = Card(name='🃃3♦', rank=3, suit='diamond', surf=pg.image.load('graphics/playing_cards/3_of_diamonds.png'))
-    c4d = Card(name='🃄4♦', rank=4, suit='diamond', surf=pg.image.load('graphics/playing_cards/4_of_diamonds.png'))
-    c5d = Card(name='🃅5♦', rank=5, suit='diamond', surf=pg.image.load('graphics/playing_cards/5_of_diamonds.png'))
-    c6d = Card(name='🃆6♦', rank=6, suit='diamond', surf=pg.image.load('graphics/playing_cards/6_of_diamonds.png'))
-    c7d = Card(name='🃇7♦', rank=7, suit='diamond', surf=pg.image.load('graphics/playing_cards/7_of_diamonds.png'))
-    c8d = Card(name='🃈8♦', rank=8, suit='diamond', surf=pg.image.load('graphics/playing_cards/8_of_diamonds.png'))
-    c9d = Card(name='🃉9♦', rank=9, suit='diamond', surf=pg.image.load('graphics/playing_cards/9_of_diamonds.png'))
-    c10d = Card(name='🃊10♦', rank=10, suit='diamond', surf=pg.image.load('graphics/playing_cards/10_of_diamonds.png'))
-    cJd = Card(name='🃋J♦', rank=11, suit='diamond', surf=pg.image.load('graphics/playing_cards/jack_of_diamonds2.png'))
-    cQd = Card(name='🃍Q♦', rank=12, suit='diamond', surf=pg.image.load('graphics/playing_cards/queen_of_diamonds2.png'))
-    cKd = Card(name='🃎K♦', rank=13, suit='diamond', surf=pg.image.load('graphics/playing_cards/king_of_diamonds2.png'))
-    cAd = Card(name='🃁A♦', rank=14, suit='diamond', surf=pg.image.load('graphics/playing_cards/ace_of_diamonds.png'))
+    c2d = Card(name='🃂2♦', rank=2, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/2_of_diamonds.png'))
+    c3d = Card(name='🃃3♦', rank=3, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/3_of_diamonds.png'))
+    c4d = Card(name='🃄4♦', rank=4, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/4_of_diamonds.png'))
+    c5d = Card(name='🃅5♦', rank=5, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/5_of_diamonds.png'))
+    c6d = Card(name='🃆6♦', rank=6, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/6_of_diamonds.png'))
+    c7d = Card(name='🃇7♦', rank=7, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/7_of_diamonds.png'))
+    c8d = Card(name='🃈8♦', rank=8, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/8_of_diamonds.png'))
+    c9d = Card(name='🃉9♦', rank=9, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/9_of_diamonds.png'))
+    c10d = Card(name='🃊10♦', rank=10, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/10_of_diamonds.png'))
+    cJd = Card(name='🃋J♦', rank=11, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/jack_of_diamonds2.png'))
+    cQd = Card(name='🃍Q♦', rank=12, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/queen_of_diamonds2.png'))
+    cKd = Card(name='🃎K♦', rank=13, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/king_of_diamonds2.png'))
+    cAd = Card(name='🃁A♦', rank=14, suit='diamond', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/ace_of_diamonds.png'))
 
-    c2c = Card(name='🃒2♣', rank=2, suit='club', surf=pg.image.load('graphics/playing_cards/2_of_clubs.png'))
-    c3c = Card(name='🃓3♣', rank=3, suit='club', surf=pg.image.load('graphics/playing_cards/3_of_clubs.png'))
-    c4c = Card(name='🃔4♣', rank=4, suit='club', surf=pg.image.load('graphics/playing_cards/4_of_clubs.png'))
-    c5c = Card(name='🃕5♣', rank=5, suit='club', surf=pg.image.load('graphics/playing_cards/5_of_clubs.png'))
-    c6c = Card(name='🃖6♣', rank=6, suit='club', surf=pg.image.load('graphics/playing_cards/6_of_clubs.png'))
-    c7c = Card(name='🃗7♣', rank=7, suit='club', surf=pg.image.load('graphics/playing_cards/7_of_clubs.png'))
-    c8c = Card(name='🃘8♣', rank=8, suit='club', surf=pg.image.load('graphics/playing_cards/8_of_clubs.png'))
-    c9c = Card(name='🃙9♣', rank=9, suit='club', surf=pg.image.load('graphics/playing_cards/9_of_clubs.png'))
-    c10c = Card(name='🃚10♣', rank=10, suit='club', surf=pg.image.load('graphics/playing_cards/10_of_clubs.png'))
-    cJc = Card(name='🃛J♣', rank=11, suit='club', surf=pg.image.load('graphics/playing_cards/jack_of_clubs2.png'))
-    cQc = Card(name='🃝Q♣', rank=12, suit='club', surf=pg.image.load('graphics/playing_cards/queen_of_clubs2.png'))
-    cKc = Card(name='🃞K♣', rank=13, suit='club', surf=pg.image.load('graphics/playing_cards/king_of_clubs2.png'))
-    cAc = Card(name='🃑A♣', rank=14, suit='club', surf=pg.image.load('graphics/playing_cards/ace_of_clubs.png'))
+    c2c = Card(name='🃒2♣', rank=2, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/2_of_clubs.png'))
+    c3c = Card(name='🃓3♣', rank=3, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/3_of_clubs.png'))
+    c4c = Card(name='🃔4♣', rank=4, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/4_of_clubs.png'))
+    c5c = Card(name='🃕5♣', rank=5, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/5_of_clubs.png'))
+    c6c = Card(name='🃖6♣', rank=6, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/6_of_clubs.png'))
+    c7c = Card(name='🃗7♣', rank=7, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/7_of_clubs.png'))
+    c8c = Card(name='🃘8♣', rank=8, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/8_of_clubs.png'))
+    c9c = Card(name='🃙9♣', rank=9, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/9_of_clubs.png'))
+    c10c = Card(name='🃚10♣', rank=10, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/10_of_clubs.png'))
+    cJc = Card(name='🃛J♣', rank=11, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/jack_of_clubs2.png'))
+    cQc = Card(name='🃝Q♣', rank=12, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/queen_of_clubs2.png'))
+    cKc = Card(name='🃞K♣', rank=13, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/king_of_clubs2.png'))
+    cAc = Card(name='🃑A♣', rank=14, suit='club', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/ace_of_clubs.png'))
 
-    c2s = Card(name='🂢2♤', rank=2, suit='spade', surf=pg.image.load('graphics/playing_cards/2_of_spades.png'))
-    c3s = Card(name='🂣3♤', rank=3, suit='spade', surf=pg.image.load('graphics/playing_cards/3_of_spades.png'))
-    c4s = Card(name='🂤4♤', rank=4, suit='spade', surf=pg.image.load('graphics/playing_cards/4_of_spades.png'))
-    c5s = Card(name='🂥5♤', rank=5, suit='spade', surf=pg.image.load('graphics/playing_cards/5_of_spades.png'))
-    c6s = Card(name='🂦6♤', rank=6, suit='spade', surf=pg.image.load('graphics/playing_cards/6_of_spades.png'))
-    c7s = Card(name='🂧7♤', rank=7, suit='spade', surf=pg.image.load('graphics/playing_cards/7_of_spades.png'))
-    c8s = Card(name='🂨8♤', rank=8, suit='spade', surf=pg.image.load('graphics/playing_cards/8_of_spades.png'))
-    c9s = Card(name='🂩9♤', rank=9, suit='spade', surf=pg.image.load('graphics/playing_cards/9_of_spades.png'))
-    c10s = Card(name='🂪10♤', rank=10, suit='spade', surf=pg.image.load('graphics/playing_cards/10_of_spades.png'))
-    cJs = Card(name='🂫J♤', rank=11, suit='spade', surf=pg.image.load('graphics/playing_cards/jack_of_spades2.png'))
-    cQs = Card(name='🂭Q♤', rank=12, suit='spade', surf=pg.image.load('graphics/playing_cards/queen_of_spades2.png'))
-    cKs = Card(name='🂮K♤', rank=13, suit='spade', surf=pg.image.load('graphics/playing_cards/king_of_spades2.png'))
-    cAs = Card(name='🂡A♤', rank=14, suit='spade', surf=pg.image.load('graphics/playing_cards/ace_of_spades.png'))
+    c2s = Card(name='🂢2♤', rank=2, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/2_of_spades.png'))
+    c3s = Card(name='🂣3♤', rank=3, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/3_of_spades.png'))
+    c4s = Card(name='🂤4♤', rank=4, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/4_of_spades.png'))
+    c5s = Card(name='🂥5♤', rank=5, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/5_of_spades.png'))
+    c6s = Card(name='🂦6♤', rank=6, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/6_of_spades.png'))
+    c7s = Card(name='🂧7♤', rank=7, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/7_of_spades.png'))
+    c8s = Card(name='🂨8♤', rank=8, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/8_of_spades.png'))
+    c9s = Card(name='🂩9♤', rank=9, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/9_of_spades.png'))
+    c10s = Card(name='🂪10♤', rank=10, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/10_of_spades.png'))
+    cJs = Card(name='🂫J♤', rank=11, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/jack_of_spades2.png'))
+    cQs = Card(name='🂭Q♤', rank=12, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/queen_of_spades2.png'))
+    cKs = Card(name='🂮K♤', rank=13, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/king_of_spades2.png'))
+    cAs = Card(name='🂡A♤', rank=14, suit='spade', surf=pg.image.load('Lifeboat_Assets/graphics/playing_cards/ace_of_spades.png'))
 
 # ================================================================================================================= #
 #                                                     GAME CLASS                                                    #
@@ -136,7 +137,6 @@ class Lifeboat:
             else: return False
 
     def fill_line(self):
-        print('fill')
         if len(game.deck) >= 5:
             for n in range(5 - len(game.waiting)):
                 game.waiting.insert(0,game.deck[0])
@@ -182,6 +182,8 @@ if True:
     win = False
     lose = False
     rules = False
+    music_on = True
+    counter = 0
 
     # Card Coordinates
     deck_pos = (340,250)
@@ -252,15 +254,23 @@ if True:
     fill_button_surf = pg.Surface((90,50)); fill_button_surf.fill('brown')
     fill_button_rect = fill_button_surf.get_rect(topleft = (680,325))
 
+    # Music On/Off Button
+    music_button_surf = pg.image.load('Lifeboat_Assets/graphics/music_symbol.png')
+    music_button_surf = pg.transform.scale(music_button_surf,(40,40))
+    music_button_rect = music_button_surf.get_rect(topleft = (925,725))
+    music_off_surf = pg.image.load('Lifeboat_Assets/graphics/cancel.png')
+    music_off_surf = pg.transform.scale(music_off_surf,(20,20))
+    music_off_rect = music_off_surf.get_rect(topleft = (925,725))
+
     # Play Again Button
     replay_text = font.render('Play again?',True,'white')
     replay_rect = replay_text.get_rect(bottomright = (900,700))
 
     # Title, Rules, Win and Lose Screens
-    title_surf = pg.image.load('graphics/lifeboat_title.png')
-    rules_surf = pg.image.load('graphics/lifeboat_rules.png')
-    win_surf = pg.image.load('graphics/lifeboat_win.png')
-    lose_surf = pg.image.load('graphics/lifeboat_lose.png')
+    title_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_title.png')
+    rules_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_rules.png')
+    win_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_win.png')
+    lose_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_lose.png')
 
 # Game Loop
 while True:
@@ -290,6 +300,18 @@ while True:
                         game_active = False
                     if fill_button_rect.collidepoint(mouse_pos):
                         game.fill_line()
+
+                    if music_button_rect.collidepoint(mouse_pos) and not music_on and counter > 5:
+                        counter = 0
+                        music_on = True
+                        music_sound.play(-1)
+
+                    if music_button_rect.collidepoint(mouse_pos) and music_on and counter > 5:
+                        counter = 0
+                        music_on = False
+                        music_sound.stop()
+
+
 
                 # Picking up cards
                 if event.type == pg.MOUSEBUTTONDOWN and not game.holding:
@@ -339,6 +361,7 @@ while True:
 #                                               BLITTING SURFACES                                               #
 # ============================================================================================================= #
     if game_active:
+        counter += 1
         if rules: screen.blit(rules_surf,(0,0))
         else:
             # Background
@@ -458,6 +481,9 @@ while True:
             screen.blit(restart_button_text,(restart_button_rect.x + 15, restart_button_rect.y + 15))
             screen.blit(fill_button_surf,fill_button_rect)
             screen.blit(fill_button_text,(fill_button_rect.x + 6,fill_button_rect.y +15))
+            screen.blit(music_button_surf,music_button_rect)
+            if not music_on:
+                screen.blit(music_off_surf,music_off_rect)
 
             # Blitting Held Card
             if game.holding:
