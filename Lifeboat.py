@@ -142,10 +142,14 @@ class Lifeboat:
                 game.waiting.insert(0,game.deck[0])
                 game.deck.pop(0)
 
-        if len(game.deck) < 5:
-            for n in game.deck:
-                game.waiting.insert(0, game.deck[0])
-                game.deck.pop(0)
+        else:
+            for n in range(5-len(game.waiting)):
+                if len(game.deck) == 0:
+                    break
+                else:
+                    game.waiting.insert(0, game.deck[0])
+                    game.deck.pop(0)
+
 
 # Initializing Game Object & Shuffling Deck
 game = Lifeboat()
