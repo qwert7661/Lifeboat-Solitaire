@@ -29,8 +29,10 @@ Win the game by emptying the deck and the waiting pile.
 Tip: Try to spread out the card ranks across your four lifeboats. 
 With 13 ranks to distribute across 4 boats, if the top cards in each boat was, e.g., 3, 6, 9, and Q, you would be able to seat every card but Aces. 
 Likewise, with top cards of 4, 7, 10, and K, you could seat every card but Twos.
-That makes these 8 ranks more strategically valuable than the other five (2s, 5s, 8s, Js, As). 
+That makes these eight ranks more strategically valuable than the other five (2s, 5s, 8s, Js, As). 
 Note also that Twos and Aces can only be placed on 2 different ranks, unlike the rest which can be placed on 3 different ranks. 
+Try to seat these cards earlier rather than later! 
+
 Good luck, captain!
 
 
