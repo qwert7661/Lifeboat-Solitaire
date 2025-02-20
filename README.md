@@ -3,7 +3,7 @@ Lifeboat is a solitaire variant in which you sort passengers on a sinking cruise
 
 Lifeboat is a new game of my own design. I hope you enjoy it!
 
-Ensure that /graphics and /audio files are in the same file location as Lifeboat.py
+Ensure that /Lifeboat_Assets file is in the same file location as Lifeboat.py
 
 Requires pygame.
 
