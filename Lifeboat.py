@@ -16,8 +16,8 @@ screen = pg.display.set_mode((screen_width,screen_height))
 pg.display.set_caption("Lifeboat")
 clock = pg.time.Clock()
 font = pg.font.Font(None,30)
-
-music_sound = pg.mixer.Sound('audio/lifeboat_music.mp3')
+# Music
+music_sound = pg.mixer.Sound('Lifeboat_Assets/audio/lifeboat_music.mp3')
 music_sound.play(loops = -1)
 
 
@@ -141,7 +141,6 @@ class Lifeboat:
             for n in range(5 - len(game.waiting)):
                 game.waiting.insert(0,game.deck[0])
                 game.deck.pop(0)
-
         else:
             for n in range(5-len(game.waiting)):
                 if len(game.deck) == 0:
@@ -184,6 +183,19 @@ if True:
     rules = False
     music_on = True
     counter = 0
+
+    board1_blit_minus1 = False; board1_blit_minus2 = False; board1_blit_minus3 = False; board1_blit_minus4 = False; board1_blit_minus5 = False
+    board1_blit_minus6 = False; board1_blit_minus7 = False; board1_blit_minus8 = False; board1_blit_minus9 = False; board1_blit_minus10 = False
+    board1_blit_minus11 = False; board1_blit_minus12 = False; board1_blit_minus13 = False; board1_blit_minus14 = False
+    board2_blit_minus1 = False; board2_blit_minus2 = False; board2_blit_minus3 = False; board2_blit_minus4 = False; board2_blit_minus5 = False
+    board2_blit_minus6 = False; board2_blit_minus7 = False; board2_blit_minus8 = False; board2_blit_minus9 = False; board2_blit_minus10 = False
+    board2_blit_minus11 = False; board2_blit_minus12 = False; board2_blit_minus13 = False; board2_blit_minus14 = False
+    board3_blit_minus1 = False; board3_blit_minus2 = False; board3_blit_minus3 = False; board3_blit_minus4 = False; board3_blit_minus5 = False
+    board3_blit_minus6 = False; board3_blit_minus7 = False; board3_blit_minus8 = False; board3_blit_minus9 = False; board3_blit_minus10 = False
+    board3_blit_minus11 = False; board3_blit_minus12 = False; board3_blit_minus13 = False; board3_blit_minus14 = False
+    board4_blit_minus1 = False; board4_blit_minus2 = False; board4_blit_minus3 = False; board4_blit_minus4 = False; board4_blit_minus5 = False
+    board4_blit_minus6 = False; board4_blit_minus7 = False; board4_blit_minus8 = False; board4_blit_minus9 = False; board4_blit_minus10 = False
+    board4_blit_minus11 = False; board4_blit_minus12 = False; board4_blit_minus13 = False; board4_blit_minus14 = False
 
     # Card Coordinates
     deck_pos = (340,250)
@@ -287,9 +299,134 @@ while True:
                     title = False
                     game_active = True
 
-
-            if game_active:
+            else:
                 mouse_pos = pg.mouse.get_pos()
+                # Showing Boat Cards on Mouseover
+                if event.type == pg.MOUSEMOTION:
+
+                    # Revealing Boat Cards on Mouse-over
+                    if 100 <= mouse_pos[0] <= 238:
+                        # Boat 1
+                        if 50 <= mouse_pos[1] < 53 and len(game.board1) > 1: board1_blit_minus1 = True
+                        else: board1_blit_minus1 = False
+                        if 53 <= mouse_pos[1] < 56 and len(game.board1) > 2: board1_blit_minus2 = True
+                        else: board1_blit_minus2 = False
+                        if 56 <= mouse_pos[1] < 59 and len(game.board1) > 3: board1_blit_minus3 = True
+                        else: board1_blit_minus3 = False
+                        if 59 <= mouse_pos[1] < 62 and len(game.board1) > 4: board1_blit_minus4 = True
+                        else: board1_blit_minus4 = False
+                        if 62 <= mouse_pos[1] < 65 and len(game.board1) > 5: board1_blit_minus5 = True
+                        else: board1_blit_minus5 = False
+                        if 65 <= mouse_pos[1] < 68 and len(game.board1) > 6: board1_blit_minus6 = True
+                        else: board1_blit_minus6 = False
+                        if 68 <= mouse_pos[1] < 71 and len(game.board1) > 7: board1_blit_minus7 = True
+                        else: board1_blit_minus7 = False
+                        if 71 <= mouse_pos[1] < 74 and len(game.board1) > 8: board1_blit_minus8 = True
+                        else: board1_blit_minus8 = False
+                        if 74 <= mouse_pos[1] < 77 and len(game.board1) > 9: board1_blit_minus9 = True
+                        else: board1_blit_minus9 = False
+                        if 77 <= mouse_pos[1] < 80 and len(game.board1) > 10: board1_blit_minus10 = True
+                        else: board1_blit_minus10 = False
+                        if 80 <= mouse_pos[1] < 83 and len(game.board1) > 11: board1_blit_minus11 = True
+                        else: board1_blit_minus11 = False
+                        if 83 <= mouse_pos[1] < 86 and len(game.board1) > 12: board1_blit_minus12 = True
+                        else: board1_blit_minus12 = False
+                        if 86 <= mouse_pos[1] < 89 and len(game.board1) > 13: board1_blit_minus13 = True
+                        else: board1_blit_minus13 = False
+                        if 89 <= mouse_pos[1] < 92 and len(game.board1) > 14: board1_blit_minus14 = True
+                        else: board1_blit_minus14 = False
+                        
+                        # Boat 3
+                        if 450 <= mouse_pos[1] < 453 and len(game.board3) > 1: board3_blit_minus1 = True
+                        else: board3_blit_minus1 = False
+                        if 453 <= mouse_pos[1] < 456 and len(game.board3) > 2: board3_blit_minus2 = True
+                        else: board3_blit_minus2 = False
+                        if 456 <= mouse_pos[1] < 459 and len(game.board3) > 3: board3_blit_minus3 = True
+                        else: board3_blit_minus3 = False
+                        if 459 <= mouse_pos[1] < 462 and len(game.board3) > 4: board3_blit_minus4 = True
+                        else: board3_blit_minus4 = False
+                        if 462 <= mouse_pos[1] < 465 and len(game.board3) > 5: board3_blit_minus5 = True
+                        else: board3_blit_minus5 = False
+                        if 465 <= mouse_pos[1] < 468 and len(game.board3) > 6: board3_blit_minus6 = True
+                        else: board3_blit_minus6 = False
+                        if 468 <= mouse_pos[1] < 471 and len(game.board3) > 7: board3_blit_minus7 = True
+                        else: board3_blit_minus7 = False
+                        if 471 <= mouse_pos[1] < 474 and len(game.board3) > 8: board3_blit_minus8 = True
+                        else: board3_blit_minus8 = False
+                        if 474 <= mouse_pos[1] < 477 and len(game.board3) > 9: board3_blit_minus9 = True
+                        else: board3_blit_minus9 = False
+                        if 477 <= mouse_pos[1] < 480 and len(game.board3) > 10: board3_blit_minus10 = True
+                        else: board3_blit_minus10 = False
+                        if 480 <= mouse_pos[1] < 483 and len(game.board3) > 11: board3_blit_minus11 = True
+                        else: board3_blit_minus11 = False
+                        if 483 <= mouse_pos[1] < 486 and len(game.board3) > 12: board3_blit_minus12 = True
+                        else: board3_blit_minus12 = False
+                        if 486 <= mouse_pos[1] < 489 and len(game.board3) > 13: board3_blit_minus13 = True
+                        else: board3_blit_minus13 = False
+                        if 489 <= mouse_pos[1] < 492 and len(game.board3) > 14: board3_blit_minus14 = True
+                        else: board3_blit_minus14 = False
+
+                    if 762 <= mouse_pos[0] <= 900:
+                        # Board 2
+                        if 50 <= mouse_pos[1] < 53 and len(game.board2) > 1: board2_blit_minus1 = True
+                        else: board2_blit_minus1 = False
+                        if 53 <= mouse_pos[1] < 56 and len(game.board2) > 2: board2_blit_minus2 = True
+                        else: board2_blit_minus2 = False
+                        if 56 <= mouse_pos[1] < 59 and len(game.board2) > 3: board2_blit_minus3 = True
+                        else: board2_blit_minus3 = False
+                        if 59 <= mouse_pos[1] < 62 and len(game.board2) > 4: board2_blit_minus4 = True
+                        else: board2_blit_minus4 = False
+                        if 62 <= mouse_pos[1] < 65 and len(game.board2) > 5: board2_blit_minus5 = True
+                        else: board2_blit_minus5 = False
+                        if 65 <= mouse_pos[1] < 68 and len(game.board2) > 6: board2_blit_minus6 = True
+                        else: board2_blit_minus6 = False
+                        if 68 <= mouse_pos[1] < 71 and len(game.board2) > 7: board2_blit_minus7 = True
+                        else: board2_blit_minus7 = False
+                        if 71 <= mouse_pos[1] < 74 and len(game.board2) > 8: board2_blit_minus8 = True
+                        else: board2_blit_minus8 = False
+                        if 74 <= mouse_pos[1] < 77 and len(game.board2) > 9: board2_blit_minus9 = True
+                        else: board2_blit_minus9 = False
+                        if 77 <= mouse_pos[1] < 80 and len(game.board2) > 10: board2_blit_minus10 = True
+                        else: board2_blit_minus10 = False
+                        if 80 <= mouse_pos[1] < 83 and len(game.board2) > 11: board2_blit_minus11 = True
+                        else: board2_blit_minus11 = False
+                        if 83 <= mouse_pos[1] < 86 and len(game.board2) > 12: board2_blit_minus12 = True
+                        else: board2_blit_minus12 = False
+                        if 86 <= mouse_pos[1] < 89 and len(game.board2) > 13: board2_blit_minus13 = True
+                        else: board2_blit_minus13 = False
+                        if 89 <= mouse_pos[1] < 92 and len(game.board2) > 14: board2_blit_minus14 = True
+                        else: board2_blit_minus14 = False
+
+                        # Board 4
+                        if 450 <= mouse_pos[1] < 453 and len(game.board4) > 1: board4_blit_minus1 = True
+                        else: board4_blit_minus1 = False
+                        if 453 <= mouse_pos[1] < 456 and len(game.board4) > 2: board4_blit_minus2 = True
+                        else: board4_blit_minus2 = False
+                        if 456 <= mouse_pos[1] < 459 and len(game.board4) > 3: board4_blit_minus3 = True
+                        else: board4_blit_minus3 = False
+                        if 459 <= mouse_pos[1] < 462 and len(game.board4) > 4: board4_blit_minus4 = True
+                        else: board4_blit_minus4 = False
+                        if 462 <= mouse_pos[1] < 465 and len(game.board4) > 5: board4_blit_minus5 = True
+                        else: board4_blit_minus5 = False
+                        if 465 <= mouse_pos[1] < 468 and len(game.board4) > 6: board4_blit_minus6 = True
+                        else: board4_blit_minus6 = False
+                        if 468 <= mouse_pos[1] < 471 and len(game.board4) > 7: board4_blit_minus7 = True
+                        else: board4_blit_minus7 = False
+                        if 471 <= mouse_pos[1] < 474 and len(game.board4) > 8: board4_blit_minus8 = True
+                        else: board4_blit_minus8 = False
+                        if 474 <= mouse_pos[1] < 477 and len(game.board4) > 9: board4_blit_minus9 = True
+                        else: board4_blit_minus9 = False
+                        if 477 <= mouse_pos[1] < 480 and len(game.board4) > 10: board4_blit_minus10 = True
+                        else: board4_blit_minus10 = False
+                        if 480 <= mouse_pos[1] < 483 and len(game.board4) > 11: board4_blit_minus11 = True
+                        else: board4_blit_minus11 = False
+                        if 483 <= mouse_pos[1] < 486 and len(game.board4) > 12: board4_blit_minus12 = True
+                        else: board4_blit_minus12 = False
+                        if 486 <= mouse_pos[1] < 489 and len(game.board4) > 13: board4_blit_minus13 = True
+                        else: board4_blit_minus13 = False
+                        if 489 <= mouse_pos[1] < 492 and len(game.board4) > 14: board4_blit_minus14 = True
+                        else: board4_blit_minus14 = False
+
                 # Clicking Buttons
                 if event.type == pg.MOUSEBUTTONDOWN:
                     if rules: rules = False
@@ -395,22 +532,22 @@ while True:
             for n in game.board1:
                 screen.blit(game.board1[0].surf, (board1_pos[0],board1_pos[1]+y))
                 board1_topcard_rect.y = board1_pos[1] + y
-                y += 2
+                y += 3
             y = 0
             for n in game.board2:
                 screen.blit(game.board2[0].surf, (board2_pos[0],board2_pos[1]+y))
                 board2_topcard_rect.y = board2_pos[1] + y
-                y += 2
+                y += 3
             y = 0
             for n in game.board3:
                 screen.blit(game.board3[0].surf, (board3_pos[0],board3_pos[1]+y))
                 board3_topcard_rect.y = board3_pos[1] + y
-                y += 2
+                y += 3
             y = 0
             for n in game.board4:
                 screen.blit(game.board4[0].surf, (board4_pos[0],board4_pos[1]+y))
                 board4_topcard_rect.y = board4_pos[1] + y
-                y += 2
+                y += 3
 
             # Updating and Blitting Stats
             remaining_text = font.render(f'Onboard: {len(game.deck)}', True, 'White')
@@ -472,8 +609,6 @@ while True:
             screen.blit(unsaved_3, (unsaved_card_pos[0] + 200, unsaved_card_pos[1] + 50))
             screen.blit(unsaved_2, (unsaved_card_pos[0] + 300, unsaved_card_pos[1] + 50))
 
-
-
             # Blitting Buttons
             screen.blit(rules_button_surf,rules_button_rect)
             screen.blit(rules_button_text,(rules_button_rect.x + 15,rules_button_rect.y + 15))
@@ -488,6 +623,72 @@ while True:
             # Blitting Held Card
             if game.holding:
                 screen.blit(game.holding.surf,(mouse_pos[0]-69,mouse_pos[1]-100))
+
+            # Blitting mouseovers
+            # Board 1 mouseovers
+            if True:
+                if board1_blit_minus1 == True: screen.blit(game.board1[-1].surf, (board1_pos[0], board1_pos[1]))
+                if board1_blit_minus2 == True: screen.blit(game.board1[-2].surf, (board1_pos[0], board1_pos[1]+3))
+                if board1_blit_minus3 == True: screen.blit(game.board1[-3].surf, (board1_pos[0], board1_pos[1]+6))
+                if board1_blit_minus4 == True: screen.blit(game.board1[-4].surf, (board1_pos[0], board1_pos[1]+9))
+                if board1_blit_minus5 == True: screen.blit(game.board1[-5].surf, (board1_pos[0], board1_pos[1]+12))
+                if board1_blit_minus6 == True: screen.blit(game.board1[-6].surf, (board1_pos[0], board1_pos[1]+15))
+                if board1_blit_minus7 == True: screen.blit(game.board1[-7].surf, (board1_pos[0], board1_pos[1]+18))
+                if board1_blit_minus8 == True: screen.blit(game.board1[-8].surf, (board1_pos[0], board1_pos[1]+21))
+                if board1_blit_minus9 == True: screen.blit(game.board1[-9].surf, (board1_pos[0], board1_pos[1]+24))
+                if board1_blit_minus10 == True: screen.blit(game.board1[-10].surf, (board1_pos[0], board1_pos[1]+27))
+                if board1_blit_minus11 == True: screen.blit(game.board1[-11].surf, (board1_pos[0], board1_pos[1]+30))
+                if board1_blit_minus12 == True: screen.blit(game.board1[-12].surf, (board1_pos[0], board1_pos[1]+33))
+                if board1_blit_minus13 == True: screen.blit(game.board1[-13].surf, (board1_pos[0], board1_pos[1]+36))
+                if board1_blit_minus14 == True: screen.blit(game.board1[-14].surf, (board1_pos[0], board1_pos[1]+39))
+                
+                if board2_blit_minus1 == True: screen.blit(game.board2[-1].surf, (board2_pos[0], board2_pos[1]))
+                if board2_blit_minus2 == True: screen.blit(game.board2[-2].surf, (board2_pos[0], board2_pos[1]+3))
+                if board2_blit_minus3 == True: screen.blit(game.board2[-3].surf, (board2_pos[0], board2_pos[1]+6))
+                if board2_blit_minus4 == True: screen.blit(game.board2[-4].surf, (board2_pos[0], board2_pos[1]+9))
+                if board2_blit_minus5 == True: screen.blit(game.board2[-5].surf, (board2_pos[0], board2_pos[1]+12))
+                if board2_blit_minus6 == True: screen.blit(game.board2[-6].surf, (board2_pos[0], board2_pos[1]+15))
+                if board2_blit_minus7 == True: screen.blit(game.board2[-7].surf, (board2_pos[0], board2_pos[1]+18))
+                if board2_blit_minus8 == True: screen.blit(game.board2[-8].surf, (board2_pos[0], board2_pos[1]+21))
+                if board2_blit_minus9 == True: screen.blit(game.board2[-9].surf, (board2_pos[0], board2_pos[1]+24))
+                if board2_blit_minus10 == True: screen.blit(game.board2[-10].surf, (board2_pos[0], board2_pos[1]+27))
+                if board2_blit_minus11 == True: screen.blit(game.board2[-11].surf, (board2_pos[0], board2_pos[1]+30))
+                if board2_blit_minus12 == True: screen.blit(game.board2[-12].surf, (board2_pos[0], board2_pos[1]+33))
+                if board2_blit_minus13 == True: screen.blit(game.board2[-13].surf, (board2_pos[0], board2_pos[1]+36))
+                if board2_blit_minus14 == True: screen.blit(game.board2[-14].surf, (board2_pos[0], board2_pos[1]+39))
+                
+                if board3_blit_minus1 == True: screen.blit(game.board3[-1].surf, (board3_pos[0], board3_pos[1]))
+                if board3_blit_minus2 == True: screen.blit(game.board3[-2].surf, (board3_pos[0], board3_pos[1]+3))
+                if board3_blit_minus3 == True: screen.blit(game.board3[-3].surf, (board3_pos[0], board3_pos[1]+6))
+                if board3_blit_minus4 == True: screen.blit(game.board3[-4].surf, (board3_pos[0], board3_pos[1]+9))
+                if board3_blit_minus5 == True: screen.blit(game.board3[-5].surf, (board3_pos[0], board3_pos[1]+12))
+                if board3_blit_minus6 == True: screen.blit(game.board3[-6].surf, (board3_pos[0], board3_pos[1]+15))
+                if board3_blit_minus7 == True: screen.blit(game.board3[-7].surf, (board3_pos[0], board3_pos[1]+18))
+                if board3_blit_minus8 == True: screen.blit(game.board3[-8].surf, (board3_pos[0], board3_pos[1]+21))
+                if board3_blit_minus9 == True: screen.blit(game.board3[-9].surf, (board3_pos[0], board3_pos[1]+24))
+                if board3_blit_minus10 == True: screen.blit(game.board3[-10].surf, (board3_pos[0], board3_pos[1]+27))
+                if board3_blit_minus11 == True: screen.blit(game.board3[-11].surf, (board3_pos[0], board3_pos[1]+30))
+                if board3_blit_minus12 == True: screen.blit(game.board3[-12].surf, (board3_pos[0], board3_pos[1]+33))
+                if board3_blit_minus13 == True: screen.blit(game.board3[-13].surf, (board3_pos[0], board3_pos[1]+36))
+                if board3_blit_minus14 == True: screen.blit(game.board3[-14].surf, (board3_pos[0], board3_pos[1]+39))
+                
+                if board4_blit_minus1 == True: screen.blit(game.board4[-1].surf, (board4_pos[0], board4_pos[1]))
+                if board4_blit_minus2 == True: screen.blit(game.board4[-2].surf, (board4_pos[0], board4_pos[1]+3))
+                if board4_blit_minus3 == True: screen.blit(game.board4[-3].surf, (board4_pos[0], board4_pos[1]+6))
+                if board4_blit_minus4 == True: screen.blit(game.board4[-4].surf, (board4_pos[0], board4_pos[1]+9))
+                if board4_blit_minus5 == True: screen.blit(game.board4[-5].surf, (board4_pos[0], board4_pos[1]+12))
+                if board4_blit_minus6 == True: screen.blit(game.board4[-6].surf, (board4_pos[0], board4_pos[1]+15))
+                if board4_blit_minus7 == True: screen.blit(game.board4[-7].surf, (board4_pos[0], board4_pos[1]+18))
+                if board4_blit_minus8 == True: screen.blit(game.board4[-8].surf, (board4_pos[0], board4_pos[1]+21))
+                if board4_blit_minus9 == True: screen.blit(game.board4[-9].surf, (board4_pos[0], board4_pos[1]+24))
+                if board4_blit_minus10 == True: screen.blit(game.board4[-10].surf, (board4_pos[0], board4_pos[1]+27))
+                if board4_blit_minus11 == True: screen.blit(game.board4[-11].surf, (board4_pos[0], board4_pos[1]+30))
+                if board4_blit_minus12 == True: screen.blit(game.board4[-12].surf, (board4_pos[0], board4_pos[1]+33))
+                if board4_blit_minus13 == True: screen.blit(game.board4[-13].surf, (board4_pos[0], board4_pos[1]+36))
+                if board4_blit_minus14 == True: screen.blit(game.board4[-14].surf, (board4_pos[0], board4_pos[1]+39))
+
+
+
 
     # Winning
     if len(game.deck) == 0 and len(game.waiting) == 0 and not game.holding:
