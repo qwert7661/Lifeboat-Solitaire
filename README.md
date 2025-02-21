@@ -11,29 +11,17 @@ Requires pygame.
 
 Rules:
 
-Lifeboat is a life-and-death solitaire game where you sort passengers on a sinking cruise ship into four lifeboats. 
-As the captain, you will go down with the ship unless you can save every single passenger. 
-Here's the catch: the upper-class passengers absolutely refuse to sit next to the lower-class passengers! 
-They would rather drown! 
+Lifeboat is a life-and-death solitaire variant in which you, the captain, must sort passengers on a sinking cruise ship into one of four lifeboats. As the captain, you will go down with the ship unless you can save every passenger.
 
-This means that cards can only be placed on a card whose rank differs from theirs by no more than ONE. 
-So a Jack may only be placed on another Jack, a Queen, or a Ten. 
-Aces are high, and cannot be placed next to 2s or vice-versa. 
+The catch is this: upper-class passengers absolutely refuse to sit next to lower-class passengers! They would rather drown!
 
-There are only 15 spots on each lifeboat, so allocate passengers wisely! 
-Overloading a lifeboat will cause it to sink, losing the game. 
+This means that a card may only be seated on a lifeboat when the card it would be placed atop differs in rank from it by no more than one. Example: a Jack may only be placed atop another Jack, a Queen, or a Ten. Aces are high and cannot be placed atop Twos, nor Twos atop Aces.
 
-When you cannot place a card from the deck on one of the four lifeboats, you must place it in the waiting pile. 
-The waiting pile can hold no more than five cards. 
+When you pick up a card from the deck, you may seat it on a lifeboat or place it in the waiting pile. The waiting pile can hold no more than five cards at a time. You may pick up any cards in the waiting pile at any time.
 
-Win the game by emptying the deck and the waiting pile. 
+There are only 15 seats on each lifeboat. Overloading a lifeboat would cause it to sink, so you may not place more cards in a full boat.
 
-Tip: Try to spread out the card ranks across your four lifeboats. 
-With 13 ranks to distribute across 4 boats, if the top cards in each boat was, e.g., 3, 6, 9, and Q, you would be able to seat every card but Aces. 
-Likewise, with top cards of 4, 7, 10, and K, you could seat every card but Twos.
-That makes these eight ranks more strategically valuable than the other five (2s, 5s, 8s, Js, As). 
-Note also that Twos and Aces can only be placed on 2 different ranks, unlike the rest which can be placed on 3 different ranks. 
-Try to seat these cards earlier rather than later! 
+Win the game by seating all 52 passengers into lifeboats!
 
 Good luck, captain!
 
