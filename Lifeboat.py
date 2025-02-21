@@ -16,6 +16,7 @@ screen = pg.display.set_mode((screen_width,screen_height))
 pg.display.set_caption("Lifeboat")
 clock = pg.time.Clock()
 font = pg.font.Font(None,30)
+bigfont = pg.font.Font(None,75)
 # Music
 music_sound = pg.mixer.Sound('Lifeboat_Assets/audio/lifeboat_music.mp3')
 music_sound.play(loops = -1)
@@ -155,7 +156,7 @@ game = Lifeboat()
 rng.shuffle(game.deck)
 
 def restart():
-    global game_active, title, win, lose
+    global game_active, title, win, lose, boat_is_full, stuck, not_stuck, board1_is_full, board2_is_full, board3_is_full, board4_is_full
     game_active = True
     title = False
     win = False
@@ -170,6 +171,11 @@ def restart():
     game.board3 = []
     game.board4 = []
     game.holding = None
+    boat_is_full = False
+    stuck = False
+    not_stuck = True
+    boards_to_check = []
+    board1_is_full = False; board2_is_full = False; board3_is_full = False; board4_is_full = False
     rng.shuffle(game.deck)
 
 # ================================================================================================================= #
@@ -182,7 +188,14 @@ if True:
     lose = False
     rules = False
     music_on = True
+    boat_is_full = False
+    stuck = False
+    not_stuck = True
+    auto_fill = False
+    boards_to_check = []
     counter = 0
+
+    board1_is_full = False; board2_is_full = False; board3_is_full = False; board4_is_full = False
 
     board1_blit_minus1 = False; board1_blit_minus2 = False; board1_blit_minus3 = False; board1_blit_minus4 = False; board1_blit_minus5 = False
     board1_blit_minus6 = False; board1_blit_minus7 = False; board1_blit_minus8 = False; board1_blit_minus9 = False; board1_blit_minus10 = False
@@ -250,21 +263,28 @@ if True:
     boat4_text = font.render(f'Seats left: {15 - len(game.board4)}', True, 'White')
     unsaved_text = font.render(f"Unsaved Passengers:",True,'White')
     unsaved_card_pos = (300,690)
+    stuck_text = bigfont.render(f'STUCK!',True,(149,0,49))
+    fullboat_text = bigfont.render(f'FULL!',True,(149,0,49))
 
     # Rules button
     rules_button_text = font.render('RULES',True,'White')
     rules_button_surf = pg.Surface((100,50)); rules_button_surf.fill('Blue')
-    rules_button_rect = rules_button_surf.get_rect(topleft = (355,140))
+    rules_button_rect = rules_button_surf.get_rect(topleft = (360,140))
 
     # Restart Button
     restart_button_text = font.render('RESTART',True,'White')
     restart_button_surf = pg.Surface((120,50)); restart_button_surf.fill('Brown4')
-    restart_button_rect = restart_button_surf.get_rect(topleft = (530,140))
+    restart_button_rect = restart_button_surf.get_rect(topleft = (535,140))
 
     # Fill Waiting Button
     fill_button_text = font.render('Fill Line', True, 'White')
     fill_button_surf = pg.Surface((90,50)); fill_button_surf.fill('brown')
-    fill_button_rect = fill_button_surf.get_rect(topleft = (680,325))
+    fill_button_rect = fill_button_surf.get_rect(topleft = (685,325))
+
+    # Auto Fill Button
+    auto_button_text = font.render('Auto-Fill',True,'White')
+    auto_button_surf = pg.Surface((100,50)); auto_button_surf.fill('brown')
+    auto_button_rect = auto_button_surf.get_rect(topleft = (800,325))
 
     # Music On/Off Button
     music_button_surf = pg.image.load('Lifeboat_Assets/graphics/music_symbol.png')
@@ -283,6 +303,7 @@ if True:
     rules_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_rules.png')
     win_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_win.png')
     lose_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_lose.png')
+
 
 # Game Loop
 while True:
@@ -303,6 +324,12 @@ while True:
                 mouse_pos = pg.mouse.get_pos()
                 # Showing Boat Cards on Mouseover
                 if event.type == pg.MOUSEMOTION:
+                    # Warning of about to lose
+                    if len(game.board1) == 15 and 100<= mouse_pos[0] <= 238 and 50 <= mouse_pos[1] <= 250: boat_is_full = True
+                    elif len(game.board3) == 15 and 100 <= mouse_pos[0] <= 238 and 450 <= mouse_pos[1] <= 650: boat_is_full = True
+                    elif len(game.board2) == 15 and 762 <= mouse_pos[0] <= 900 and 50<= mouse_pos[1] <= 250: boat_is_full = True
+                    elif len(game.board4) == 15 and 762 <= mouse_pos[0] <= 900 and 450 <= mouse_pos[1] <= 650: boat_is_full = True
+                    else: boat_is_full = False
 
                     # Revealing Boat Cards on Mouse-over
                     if 100 <= mouse_pos[0] <= 238:
@@ -365,6 +392,15 @@ while True:
                         else: board3_blit_minus13 = False
                         if 489 <= mouse_pos[1] < 492 and len(game.board3) > 14: board3_blit_minus14 = True
                         else: board3_blit_minus14 = False
+                    else: 
+                        board1_blit_minus1 = False; board1_blit_minus2 = False; board1_blit_minus3 = False; board1_blit_minus4 = False
+                        board1_blit_minus5 = False; board1_blit_minus6 = False; board1_blit_minus7 = False; board1_blit_minus8 = False
+                        board1_blit_minus9 = False; board1_blit_minus10 = False; board1_blit_minus11 = False; board1_blit_minus12 = False
+                        board1_blit_minus13 = False; board1_blit_minus14 = False
+                        board3_blit_minus1 = False; board3_blit_minus2 = False; board3_blit_minus3 = False; board3_blit_minus4 = False
+                        board3_blit_minus5 = False; board3_blit_minus6 = False; board3_blit_minus7 = False; board3_blit_minus8 = False
+                        board3_blit_minus9 = False; board3_blit_minus10 = False; board3_blit_minus11 = False; board3_blit_minus12 = False
+                        board3_blit_minus13 = False; board3_blit_minus14 = False
 
                     if 762 <= mouse_pos[0] <= 900:
                         # Board 2
@@ -426,32 +462,46 @@ while True:
                         else: board4_blit_minus13 = False
                         if 489 <= mouse_pos[1] < 492 and len(game.board4) > 14: board4_blit_minus14 = True
                         else: board4_blit_minus14 = False
-
+                    else:
+                        board2_blit_minus1 = False; board2_blit_minus2 = False; board2_blit_minus3 = False; board2_blit_minus4 = False
+                        board2_blit_minus5 = False; board2_blit_minus6 = False; board2_blit_minus7 = False; board2_blit_minus8 = False
+                        board2_blit_minus9 = False; board2_blit_minus10 = False; board2_blit_minus11 = False; board2_blit_minus12 = False
+                        board2_blit_minus13 = False; board2_blit_minus14 = False
+                        board4_blit_minus1 = False; board4_blit_minus2 = False; board4_blit_minus3 = False; board4_blit_minus4 = False
+                        board4_blit_minus5 = False; board4_blit_minus6 = False; board4_blit_minus7 = False; board4_blit_minus8 = False
+                        board4_blit_minus9 = False; board4_blit_minus10 = False; board4_blit_minus11 = False; board4_blit_minus12 = False
+                        board4_blit_minus13 = False; board4_blit_minus14 = False
+                        
                 # Clicking Buttons
                 if event.type == pg.MOUSEBUTTONDOWN:
                     if rules: rules = False
                     if rules_button_rect.collidepoint(mouse_pos):
                         rules = True
-                    if restart_button_rect.collidepoint(mouse_pos):
-                        lose = True
-                        game_active = False
-                    if fill_button_rect.collidepoint(mouse_pos):
+                    if auto_button_rect.collidepoint(mouse_pos) and not auto_fill and counter > 5:
+                        counter = 0
+                        auto_fill = True
+                    if auto_button_rect.collidepoint(mouse_pos) and auto_fill and counter > 5:
+                        counter = 0
+                        auto_fill = False
+                    if fill_button_rect.collidepoint(mouse_pos) and not game.holding and game.waiting != 5:
                         game.fill_line()
-
                     if music_button_rect.collidepoint(mouse_pos) and not music_on and counter > 5:
                         counter = 0
                         music_on = True
                         music_sound.play(-1)
-
                     if music_button_rect.collidepoint(mouse_pos) and music_on and counter > 5:
                         counter = 0
                         music_on = False
                         music_sound.stop()
-
-
+                if event.type == pg.MOUSEBUTTONUP:
+                    if restart_button_rect.collidepoint(mouse_pos) and not title and not rules:
+                        counter = 0
+                        lose = True
+                        game_active = False
 
                 # Picking up cards
-                if event.type == pg.MOUSEBUTTONDOWN and not game.holding:
+                if event.type == pg.MOUSEBUTTONDOWN and not game.holding and counter > 5:
+                    counter = 0
                     if len(game.deck) > 0 and len(game.waiting) < 5:
                         if deck_topcard_rect.collidepoint(mouse_pos):
                             game.pick_up_card(game.deck[0],game.deck)
@@ -473,30 +523,28 @@ while True:
                     game.holding.update_position(mouse_pos)
 
                 # Placing cards down in waiting or in boats
-                if event.type == pg.MOUSEBUTTONUP and game.holding:
+                if event.type == pg.MOUSEBUTTONDOWN and game.holding and counter > 5:
+                    counter = 0
                     if waiting_marker_rect.collidepoint(mouse_pos) or waiting_topcard_rect.collidepoint(mouse_pos):
                             game.put_down_card(game.holding,game.waiting)
-                    if board1_marker_rect.collidepoint(mouse_pos) or board1_topcard_rect.collidepoint(mouse_pos):
+                    if (board1_marker_rect.collidepoint(mouse_pos) or board1_topcard_rect.collidepoint(mouse_pos)) and not len(game.board1) == 15:
                         game.validate_put_down(game.holding,game.board1)
-                    if board2_marker_rect.collidepoint(mouse_pos) or board2_topcard_rect.collidepoint(mouse_pos):
+                    if (board2_marker_rect.collidepoint(mouse_pos) or board2_topcard_rect.collidepoint(mouse_pos)) and not len(game.board2) == 15:
                         game.validate_put_down(game.holding, game.board2)
-                    if board3_marker_rect.collidepoint(mouse_pos) or board3_topcard_rect.collidepoint(mouse_pos):
+                    if (board3_marker_rect.collidepoint(mouse_pos) or board3_topcard_rect.collidepoint(mouse_pos)) and not len(game.board3) == 15:
                         game.validate_put_down(game.holding, game.board3)
-                    if board4_marker_rect.collidepoint(mouse_pos) or board4_topcard_rect.collidepoint(mouse_pos):
+                    if (board4_marker_rect.collidepoint(mouse_pos) or board4_topcard_rect.collidepoint(mouse_pos)) and not len(game.board4) == 15:
                         game.validate_put_down(game.holding, game.board4)
 
             # Replaying game after win/lose
             if not game_active:
                 if event.type == pg.MOUSEBUTTONDOWN:
-                    mouse_pos = pg.mouse.get_pos()
-                    if replay_rect.collidepoint(mouse_pos):
-                        restart()
-
-
+                    restart()
 
 # ============================================================================================================= #
 #                                               BLITTING SURFACES                                               #
 # ============================================================================================================= #
+
     if game_active:
         counter += 1
         if rules: screen.blit(rules_surf,(0,0))
@@ -567,47 +615,48 @@ while True:
             # Unsaved Counter
             screen.blit(unsaved_text, (390,640))
             # Counting the number of unsaved cards
-            num_A = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 14)
-            num_K = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 13)
-            num_Q = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 12)
-            num_J = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 11)
-            num_10 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 10)
-            num_9 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 9)
-            num_8 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 8)
-            num_7 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 7)
-            num_6 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 6)
-            num_5 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 5)
-            num_4 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 4)
-            num_3 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 3)
-            num_2 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 2)
+            if True:
+                num_A = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 14)
+                num_K = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 13)
+                num_Q = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 12)
+                num_J = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 11)
+                num_10 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 10)
+                num_9 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 9)
+                num_8 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 8)
+                num_7 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 7)
+                num_6 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 6)
+                num_5 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 5)
+                num_4 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 4)
+                num_3 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 3)
+                num_2 = sum(1 for n in chain(game.deck, game.waiting, [game.holding] if game.holding else []) if n.rank == 2)
 
-            unsaved_A = font.render("A " * num_A,True,'White')
-            unsaved_K = font.render("K " * num_K, True, 'White')
-            unsaved_Q = font.render("Q " * num_Q, True, 'White')
-            unsaved_J = font.render("J " * num_J, True, 'White')
-            unsaved_10 = font.render("T " * num_10, True, 'White')
-            unsaved_9 = font.render("9 " * num_9, True, 'White')
-            unsaved_8 = font.render("8 " * num_8, True, 'White')
-            unsaved_7 = font.render("7 " * num_7, True, 'White')
-            unsaved_6 = font.render("6 " * num_6, True, 'White')
-            unsaved_5 = font.render("5 " * num_5, True, 'White')
-            unsaved_4 = font.render("4 " * num_4, True, 'White')
-            unsaved_3 = font.render("3 " * num_3, True, 'White')
-            unsaved_2 = font.render("2 " * num_2, True, 'White')
+                unsaved_A = font.render("A " * num_A,True,'White')
+                unsaved_K = font.render("K " * num_K, True, 'White')
+                unsaved_Q = font.render("Q " * num_Q, True, 'White')
+                unsaved_J = font.render("J " * num_J, True, 'White')
+                unsaved_10 = font.render("T " * num_10, True, 'White')
+                unsaved_9 = font.render("9 " * num_9, True, 'White')
+                unsaved_8 = font.render("8 " * num_8, True, 'White')
+                unsaved_7 = font.render("7 " * num_7, True, 'White')
+                unsaved_6 = font.render("6 " * num_6, True, 'White')
+                unsaved_5 = font.render("5 " * num_5, True, 'White')
+                unsaved_4 = font.render("4 " * num_4, True, 'White')
+                unsaved_3 = font.render("3 " * num_3, True, 'White')
+                unsaved_2 = font.render("2 " * num_2, True, 'White')
 
-            screen.blit(unsaved_A,(unsaved_card_pos[0]+150,unsaved_card_pos[1]-25))
-            screen.blit(unsaved_K,(unsaved_card_pos[0],unsaved_card_pos[1]))
-            screen.blit(unsaved_Q, (unsaved_card_pos[0]+100,unsaved_card_pos[1]))
-            screen.blit(unsaved_J, (unsaved_card_pos[0] + 200, unsaved_card_pos[1]))
-            screen.blit(unsaved_10, (unsaved_card_pos[0] + 300, unsaved_card_pos[1]))
-            screen.blit(unsaved_9, (unsaved_card_pos[0] + 0, unsaved_card_pos[1]+25))
-            screen.blit(unsaved_8, (unsaved_card_pos[0] + 100, unsaved_card_pos[1]+25))
-            screen.blit(unsaved_7, (unsaved_card_pos[0] + 200, unsaved_card_pos[1]+25))
-            screen.blit(unsaved_6, (unsaved_card_pos[0] + 300, unsaved_card_pos[1]+25))
-            screen.blit(unsaved_5, (unsaved_card_pos[0] + 0, unsaved_card_pos[1] + 50))
-            screen.blit(unsaved_4, (unsaved_card_pos[0] + 100, unsaved_card_pos[1] + 50))
-            screen.blit(unsaved_3, (unsaved_card_pos[0] + 200, unsaved_card_pos[1] + 50))
-            screen.blit(unsaved_2, (unsaved_card_pos[0] + 300, unsaved_card_pos[1] + 50))
+                screen.blit(unsaved_A,(unsaved_card_pos[0]+150,unsaved_card_pos[1]-25))
+                screen.blit(unsaved_K,(unsaved_card_pos[0],unsaved_card_pos[1]))
+                screen.blit(unsaved_Q, (unsaved_card_pos[0]+100,unsaved_card_pos[1]))
+                screen.blit(unsaved_J, (unsaved_card_pos[0] + 200, unsaved_card_pos[1]))
+                screen.blit(unsaved_10, (unsaved_card_pos[0] + 300, unsaved_card_pos[1]))
+                screen.blit(unsaved_9, (unsaved_card_pos[0] + 0, unsaved_card_pos[1]+25))
+                screen.blit(unsaved_8, (unsaved_card_pos[0] + 100, unsaved_card_pos[1]+25))
+                screen.blit(unsaved_7, (unsaved_card_pos[0] + 200, unsaved_card_pos[1]+25))
+                screen.blit(unsaved_6, (unsaved_card_pos[0] + 300, unsaved_card_pos[1]+25))
+                screen.blit(unsaved_5, (unsaved_card_pos[0] + 0, unsaved_card_pos[1] + 50))
+                screen.blit(unsaved_4, (unsaved_card_pos[0] + 100, unsaved_card_pos[1] + 50))
+                screen.blit(unsaved_3, (unsaved_card_pos[0] + 200, unsaved_card_pos[1] + 50))
+                screen.blit(unsaved_2, (unsaved_card_pos[0] + 300, unsaved_card_pos[1] + 50))
 
             # Blitting Buttons
             screen.blit(rules_button_surf,rules_button_rect)
@@ -616,9 +665,48 @@ while True:
             screen.blit(restart_button_text,(restart_button_rect.x + 15, restart_button_rect.y + 15))
             screen.blit(fill_button_surf,fill_button_rect)
             screen.blit(fill_button_text,(fill_button_rect.x + 6,fill_button_rect.y +15))
+            screen.blit(auto_button_surf,auto_button_rect)
+            screen.blit(auto_button_text,(auto_button_rect.x + 6, auto_button_rect.y + 15))
             screen.blit(music_button_surf,music_button_rect)
             if not music_on:
                 screen.blit(music_off_surf,music_off_rect)
+
+
+            # Display STUCK!
+            if len(game.board1) == 15: board1_is_full = True
+            if len(game.board2) == 15: board2_is_full = True
+            if len(game.board3) == 15: board3_is_full = True
+            if len(game.board4) == 15: board4_is_full = True
+            if len(game.board1) > 0 and len(game.board2) > 0 and len(game.board3) > 0 and len(game.board4) > 0:
+                boards_to_check = [game.board1[0], game.board2[0], game.board3[0],game.board4[0]]
+
+            if board1_is_full: boards_to_check.remove(game.board1[0])
+            if board2_is_full: boards_to_check.remove(game.board2[0])
+            if board3_is_full: boards_to_check.remove(game.board3[0])
+            if board4_is_full: boards_to_check.remove(game.board4[0])
+
+            if len(game.deck) == 0:
+                stuck = True
+                for m in (game.board1[0], game.board2[0], game.board3[0], game.board4[0]):
+                    for n in game.waiting:
+                        if abs(n.rank - m.rank) <= 1:
+                            stuck = False
+                    if game.holding:
+                        if abs(game.holding.rank - m.rank) <= 1:
+                            stuck = False
+            elif len(game.waiting) == 5 and 0 < len(game.board1) and 0 < len(game.board2) and 0 < len(game.board3) and 0 < len(game.board4):
+                stuck = True
+                for m in (boards_to_check):
+                    for n in game.waiting:
+                        if abs(n.rank - m.rank) <= 1:
+                            stuck = False
+
+            if stuck:
+                screen.blit(stuck_text, (400, 20))
+
+            # Display FULL!
+            if boat_is_full == True:
+                screen.blit(fullboat_text,(430, 70))
 
             # Blitting Held Card
             if game.holding:
@@ -687,18 +775,17 @@ while True:
                 if board4_blit_minus13 == True: screen.blit(game.board4[-13].surf, (board4_pos[0], board4_pos[1]+36))
                 if board4_blit_minus14 == True: screen.blit(game.board4[-14].surf, (board4_pos[0], board4_pos[1]+39))
 
-
-
+    # Auto-Fill
+    if auto_fill and not game.holding and game.waiting != 5:
+        game.fill_line()
 
     # Winning
     if len(game.deck) == 0 and len(game.waiting) == 0 and not game.holding:
         game_active = False
         win = True
     # Losing
-    if len(game.waiting) > 5:
-        game_active = False
-        lose = True
     if len(game.board1) > 15 or len(game.board2) > 15 or len(game.board3) > 15 or len(game.board4) > 15:
+        print("You overloaded a lifeboat!")
         game_active = False
         lose = True
 
@@ -707,11 +794,8 @@ while True:
         if title: screen.blit(title_surf,(0,0))
         elif win:
             screen.blit(win_surf,(0,0))
-            screen.blit(replay_text,replay_rect)
         elif lose:
             screen.blit(lose_surf,(0,0))
-            screen.blit(replay_text,replay_rect)
-
     # Updating display and limiting FPS
     pg.display.flip()
     clock.tick(60)
