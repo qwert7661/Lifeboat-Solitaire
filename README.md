@@ -1,13 +1,9 @@
 # Lifeboat-Solitaire
-Lifeboat is a solitaire variant in which you sort passengers on a sinking cruise ship into four lifeboats.
+Lifeboat is a new solitaire game of my own design in which you load passengers on a sinking cruise ship into lifeboats. I hope you enjoy it!
 
-Lifeboat is a new game of my own design. I hope you enjoy it!
+To play, simply unzip Lifeboat-Solitaire-main, open the file and run Lifeboat.exe. Note that first-time launch may take some time as the .exe must install Python on your computer. Ensure that the /Lifeboat_Assets file is in the same file location as Lifeboat.py. Uses pygame.
 
-To play, simply unzip Lifeboat-Solitaire-main, open the file and run Lifeboat.exe. Note that first-time launch may take some time as the .exe must install Python on your computer.
-
-Ensure that /Lifeboat_Assets file is in the same file location as Lifeboat.py
-
-Requires pygame.
+Please report any bugs encountered to me, qwert7661, in as much detail as possible.
 
 Rules:
 
