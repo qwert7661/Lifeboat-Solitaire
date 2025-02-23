@@ -3,6 +3,7 @@
 # ================================================================================================================= #
 import random as rng
 from itertools import chain
+import sys
 import pygame as pg
 pg.init()
 pg.font.init()
@@ -139,11 +140,11 @@ class Lifeboat:
 
     def fill_line(self):
         if len(game.deck) >= 5:
-            for n in range(5 - len(game.waiting)):
+            for n in range(5 - harder - len(game.waiting)):
                 game.waiting.insert(0,game.deck[0])
                 game.deck.pop(0)
         else:
-            for n in range(5-len(game.waiting)):
+            for n in range(5 - harder - len(game.waiting)):
                 if len(game.deck) == 0:
                     break
                 else:
@@ -156,7 +157,7 @@ game = Lifeboat()
 rng.shuffle(game.deck)
 
 def restart():
-    global game_active, title, win, lose, boat_is_full, stuck, not_stuck, board1_is_full, board2_is_full, board3_is_full, board4_is_full
+    global game_active, title, win, lose, boat_is_full, stuck, not_stuck, board1_is_full, board2_is_full, board3_is_full, board4_is_full, time_tick
     game_active = True
     title = False
     win = False
@@ -176,12 +177,15 @@ def restart():
     not_stuck = True
     boards_to_check = []
     board1_is_full = False; board2_is_full = False; board3_is_full = False; board4_is_full = False
+    time_tick = 0
+    time = 0
     rng.shuffle(game.deck)
 
 # ================================================================================================================= #
 #                                                STARTING VARIABLES                                                 #
 # ================================================================================================================= #
 if True:
+    running = True
     game_active = False
     title = True
     win = False
@@ -194,6 +198,10 @@ if True:
     auto_fill = False
     boards_to_check = []
     counter = 0
+    time_tick = 0
+    time = 0
+    hard_mode = False
+    harder = 0
 
     board1_is_full = False; board2_is_full = False; board3_is_full = False; board4_is_full = False
 
@@ -257,11 +265,11 @@ if True:
     # Stats Text
     remaining_text = font.render(f'Left to save: {len(game.deck)}',True,'White')
     waiting_text = font.render(f'Awaiting spots: {len(game.waiting)}',True,'White')
-    boat1_text = font.render(f'Seats left: {15-len(game.board1)}',True,'White')
-    boat2_text = font.render(f'Seats left: {15 - len(game.board2)}', True, 'White')
-    boat3_text = font.render(f'Seats left: {15 - len(game.board3)}', True, 'White')
-    boat4_text = font.render(f'Seats left: {15 - len(game.board4)}', True, 'White')
-    unsaved_text = font.render(f"Unsaved Passengers:",True,'White')
+    boat1_text = font.render(f'Seats left: {15 - harder - len(game.board1)}',True,'White')
+    boat2_text = font.render(f'Seats left: {15 - harder - len(game.board2)}', True, 'White')
+    boat3_text = font.render(f'Seats left: {15 - harder - len(game.board3)}', True, 'White')
+    boat4_text = font.render(f'Seats left: {15 - harder - len(game.board4)}', True, 'White')
+    unsaved_text = font.render(f"Passenger Manifest:",True,'White')
     unsaved_card_pos = (300,690)
     stuck_text = bigfont.render(f'STUCK!',True,(149,0,49))
     fullboat_text = bigfont.render(f'FULL!',True,(149,0,49))
@@ -294,9 +302,14 @@ if True:
     music_off_surf = pg.transform.scale(music_off_surf,(20,20))
     music_off_rect = music_off_surf.get_rect(topleft = (925,725))
 
-    # Play Again Button
-    replay_text = font.render('Play again?',True,'white')
-    replay_rect = replay_text.get_rect(bottomright = (900,700))
+    # Time/Score
+    time_text = bigfont.render(f"You saved everyone in {time} seconds!",True,'Yellow')
+
+    # Hard Mode Button & Mode Button Toggle
+
+    mode_button_text = font.render(f'Hard Mode',True,'White')
+    mode_button_surf = pg.Surface((130,30)); mode_button_surf.fill('Brown')
+    mode_button_rect = mode_button_surf.get_rect(bottomleft = (10,760))
 
     # Title, Rules, Win and Lose Screens
     title_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_title.png')
@@ -306,29 +319,30 @@ if True:
 
 
 # Game Loop
-while True:
+while running:
     # ============================================================================================================= #
     #                                                EVENT LOOP                                                     #
     # ============================================================================================================= #
     for event in pg.event.get():
         if event.type == pg.QUIT:
+            running = False
             pg.quit()
         else:
             # Closing the title screen
+            mouse_pos = pg.mouse.get_pos()
             if title:
                 if event.type == pg.MOUSEBUTTONDOWN:
                     title = False
                     game_active = True
 
             else:
-                mouse_pos = pg.mouse.get_pos()
                 # Showing Boat Cards on Mouseover
                 if event.type == pg.MOUSEMOTION:
                     # Warning of about to lose
-                    if len(game.board1) == 15 and 100<= mouse_pos[0] <= 238 and 50 <= mouse_pos[1] <= 250: boat_is_full = True
-                    elif len(game.board3) == 15 and 100 <= mouse_pos[0] <= 238 and 450 <= mouse_pos[1] <= 650: boat_is_full = True
-                    elif len(game.board2) == 15 and 762 <= mouse_pos[0] <= 900 and 50<= mouse_pos[1] <= 250: boat_is_full = True
-                    elif len(game.board4) == 15 and 762 <= mouse_pos[0] <= 900 and 450 <= mouse_pos[1] <= 650: boat_is_full = True
+                    if len(game.board1) == 15 - harder and 100<= mouse_pos[0] <= 238 and 50 <= mouse_pos[1] <= 250: boat_is_full = True
+                    elif len(game.board3) == 15 - harder and 100 <= mouse_pos[0] <= 238 and 450 <= mouse_pos[1] <= 650: boat_is_full = True
+                    elif len(game.board2) == 15 - harder and 762 <= mouse_pos[0] <= 900 and 50<= mouse_pos[1] <= 250: boat_is_full = True
+                    elif len(game.board4) == 15 - harder and 762 <= mouse_pos[0] <= 900 and 450 <= mouse_pos[1] <= 650: boat_is_full = True
                     else: boat_is_full = False
 
                     # Revealing Boat Cards on Mouse-over
@@ -483,7 +497,7 @@ while True:
                     if auto_button_rect.collidepoint(mouse_pos) and auto_fill and counter > 5:
                         counter = 0
                         auto_fill = False
-                    if fill_button_rect.collidepoint(mouse_pos) and not game.holding and game.waiting != 5:
+                    if fill_button_rect.collidepoint(mouse_pos) and not game.holding and game.waiting != 5 - harder:
                         game.fill_line()
                     if music_button_rect.collidepoint(mouse_pos) and not music_on and counter > 5:
                         counter = 0
@@ -493,16 +507,28 @@ while True:
                         counter = 0
                         music_on = False
                         music_sound.stop()
+                    if mode_button_rect.collidepoint(mouse_pos) and not title and not rules:
+                        if hard_mode and counter > 5:
+                            hard_mode = False
+                            harder = 0
+                            counter = 0
+                            restart()
+                        elif not hard_mode and counter > 5:
+                            hard_mode = True
+                            harder = 1
+                            counter = 0
+                            restart()
                 if event.type == pg.MOUSEBUTTONUP:
                     if restart_button_rect.collidepoint(mouse_pos) and not title and not rules:
                         counter = 0
                         lose = True
                         game_active = False
 
+
                 # Picking up cards
                 if event.type == pg.MOUSEBUTTONDOWN and not game.holding and counter > 5:
                     counter = 0
-                    if len(game.deck) > 0 and len(game.waiting) < 5:
+                    if len(game.deck) > 0 and len(game.waiting) < 5 - harder:
                         if deck_topcard_rect.collidepoint(mouse_pos):
                             game.pick_up_card(game.deck[0],game.deck)
                     if len(game.waiting) > 0:
@@ -527,13 +553,13 @@ while True:
                     counter = 0
                     if waiting_marker_rect.collidepoint(mouse_pos) or waiting_topcard_rect.collidepoint(mouse_pos):
                             game.put_down_card(game.holding,game.waiting)
-                    if (board1_marker_rect.collidepoint(mouse_pos) or board1_topcard_rect.collidepoint(mouse_pos)) and not len(game.board1) == 15:
+                    if (board1_marker_rect.collidepoint(mouse_pos) or board1_topcard_rect.collidepoint(mouse_pos)) and not len(game.board1) == 15 - harder:
                         game.validate_put_down(game.holding,game.board1)
-                    if (board2_marker_rect.collidepoint(mouse_pos) or board2_topcard_rect.collidepoint(mouse_pos)) and not len(game.board2) == 15:
+                    if (board2_marker_rect.collidepoint(mouse_pos) or board2_topcard_rect.collidepoint(mouse_pos)) and not len(game.board2) == 15 - harder:
                         game.validate_put_down(game.holding, game.board2)
-                    if (board3_marker_rect.collidepoint(mouse_pos) or board3_topcard_rect.collidepoint(mouse_pos)) and not len(game.board3) == 15:
+                    if (board3_marker_rect.collidepoint(mouse_pos) or board3_topcard_rect.collidepoint(mouse_pos)) and not len(game.board3) == 15 - harder:
                         game.validate_put_down(game.holding, game.board3)
-                    if (board4_marker_rect.collidepoint(mouse_pos) or board4_topcard_rect.collidepoint(mouse_pos)) and not len(game.board4) == 15:
+                    if (board4_marker_rect.collidepoint(mouse_pos) or board4_topcard_rect.collidepoint(mouse_pos)) and not len(game.board4) == 15 - harder:
                         game.validate_put_down(game.holding, game.board4)
 
             # Replaying game after win/lose
@@ -545,7 +571,10 @@ while True:
 #                                               BLITTING SURFACES                                               #
 # ============================================================================================================= #
 
-    if game_active:
+    if game_active and running == True:
+        if not stuck:
+            time_tick += 1
+            time = time_tick // 60
         counter += 1
         if rules: screen.blit(rules_surf,(0,0))
         else:
@@ -603,13 +632,13 @@ while True:
             screen.blit(remaining_text,(345,210))
             screen.blit(waiting_text,(550,210))
             pg.draw.line(screen, 'white', (500,200),(500,235),3)
-            boat1_text = font.render(f'Seats left: {15 - len(game.board1)}', True, 'White')
+            boat1_text = font.render(f'Seats left: {15 - harder - len(game.board1)}', True, 'White')
             screen.blit(boat1_text,(250,80))
-            boat2_text = font.render(f'Seats left: {15 - len(game.board2)}', True, 'White')
+            boat2_text = font.render(f'Seats left: {15 - harder - len(game.board2)}', True, 'White')
             screen.blit(boat2_text, (620, 80))
-            boat3_text = font.render(f'Seats left: {15 - len(game.board3)}', True, 'White')
+            boat3_text = font.render(f'Seats left: {15 - harder - len(game.board3)}', True, 'White')
             screen.blit(boat3_text, (250, 600))
-            boat4_text = font.render(f'Seats left: {15 - len(game.board4)}', True, 'White')
+            boat4_text = font.render(f'Seats left: {15 - harder - len(game.board4)}', True, 'White')
             screen.blit(boat4_text, (620, 600))
 
             # Unsaved Counter
@@ -673,10 +702,10 @@ while True:
 
 
             # Display STUCK!
-            if len(game.board1) == 15: board1_is_full = True
-            if len(game.board2) == 15: board2_is_full = True
-            if len(game.board3) == 15: board3_is_full = True
-            if len(game.board4) == 15: board4_is_full = True
+            if len(game.board1) == 15 - harder: board1_is_full = True
+            if len(game.board2) == 15 - harder: board2_is_full = True
+            if len(game.board3) == 15 - harder: board3_is_full = True
+            if len(game.board4) == 15 - harder: board4_is_full = True
             if len(game.board1) > 0 and len(game.board2) > 0 and len(game.board3) > 0 and len(game.board4) > 0:
                 boards_to_check = [game.board1[0], game.board2[0], game.board3[0],game.board4[0]]
 
@@ -687,14 +716,14 @@ while True:
 
             if len(game.deck) == 0:
                 stuck = True
-                for m in (game.board1[0], game.board2[0], game.board3[0], game.board4[0]):
+                for m in (boards_to_check):
                     for n in game.waiting:
                         if abs(n.rank - m.rank) <= 1:
                             stuck = False
                     if game.holding:
                         if abs(game.holding.rank - m.rank) <= 1:
                             stuck = False
-            elif len(game.waiting) == 5 and 0 < len(game.board1) and 0 < len(game.board2) and 0 < len(game.board3) and 0 < len(game.board4):
+            elif len(game.waiting) == 5 - harder and 0 < len(game.board1) and 0 < len(game.board2) and 0 < len(game.board3) and 0 < len(game.board4):
                 stuck = True
                 for m in (boards_to_check):
                     for n in game.waiting:
@@ -707,6 +736,17 @@ while True:
             # Display FULL!
             if boat_is_full == True:
                 screen.blit(fullboat_text,(430, 70))
+
+            # Timer
+            if hard_mode: timer_text = font.render(f'Sinking in {200 - time} seconds!', True, 'White')
+            else: timer_text = font.render(f'Time elapsed: {time} seconds...',True,'White')
+            screen.blit(timer_text,(10,770))
+
+            # Blit Mode Switch Button
+            if hard_mode: mode_button_text = font.render(f'Hard Mode', True, 'White')
+            if not hard_mode: mode_button_text = font.render(f'Easy Mode',True,'White')
+            screen.blit(mode_button_surf,mode_button_rect)
+            screen.blit(mode_button_text,(mode_button_rect.x + 10, mode_button_rect.y +6))
 
             # Blitting Held Card
             if game.holding:
@@ -775,30 +815,39 @@ while True:
                 if board4_blit_minus13 == True: screen.blit(game.board4[-13].surf, (board4_pos[0], board4_pos[1]+36))
                 if board4_blit_minus14 == True: screen.blit(game.board4[-14].surf, (board4_pos[0], board4_pos[1]+39))
 
-    # Auto-Fill
-    if auto_fill and not game.holding and game.waiting != 5:
-        game.fill_line()
+        # Auto-Fill
+        if auto_fill and not game.holding and game.waiting != 5 - harder:
+            game.fill_line()
 
-    # Winning
-    if len(game.deck) == 0 and len(game.waiting) == 0 and not game.holding:
-        game_active = False
-        win = True
-    # Losing
-    if len(game.board1) > 15 or len(game.board2) > 15 or len(game.board3) > 15 or len(game.board4) > 15:
-        print("You overloaded a lifeboat!")
-        game_active = False
-        lose = True
+    if running:
+        # Updating time text
+        win_text = bigfont.render(f"You saved everyone in {time} seconds!", True, 'Yellow')
+        lose_text = bigfont.render(f"The ship sank in {time} seconds!", True, (30,181,173))
 
-    # Blitting Screens
-    if not game_active:
-        if title: screen.blit(title_surf,(0,0))
-        elif win:
-            screen.blit(win_surf,(0,0))
-        elif lose:
-            screen.blit(lose_surf,(0,0))
-    # Updating display and limiting FPS
-    pg.display.flip()
-    clock.tick(60)
+        # Winning
+        if len(game.deck) == 0 and len(game.waiting) == 0 and not game.holding:
+            game_active = False
+            win = True
+        # Losing
+        if hard_mode and time >= 200:
+            game_active = False
+            lose = True
+
+        # Blitting Screens
+        if not game_active:
+            if title:
+                screen.blit(title_surf,(0,0))
+            elif win:
+                screen.blit(win_surf,(0,0))
+                screen.blit(win_text,(60,350))
+            elif lose:
+                screen.blit(lose_surf,(0,0))
+                screen.blit(lose_text,(150,350))
+        # Updating display and limiting FPS
+        pg.display.flip()
+        clock.tick(60)
 # ================================================================================================================= #
 #                                                     end of code                                                   #
 # ================================================================================================================= #
+pg.quit()
+sys.exit()
