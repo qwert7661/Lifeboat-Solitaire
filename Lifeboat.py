@@ -310,6 +310,7 @@ if True:
     mode_button_text = font.render(f'Hard Mode',True,'White')
     mode_button_surf = pg.Surface((130,30)); mode_button_surf.fill('Brown')
     mode_button_rect = mode_button_surf.get_rect(bottomleft = (10,760))
+    hard_win_text = bigfont.render(f'Congratulations, you beat Hard Mode!',True,'Yellow')
 
     # Title, Rules, Win and Lose Screens
     title_surf = pg.image.load('Lifeboat_Assets/graphics/lifeboat_title.png')
@@ -839,10 +840,13 @@ while running:
                 screen.blit(title_surf,(0,0))
             elif win:
                 screen.blit(win_surf,(0,0))
-                screen.blit(win_text,(60,350))
+                screen.blit(win_text,(60,700))
+                if hard_mode:
+                    screen.blit(hard_win_text,(20,620))
+
             elif lose:
                 screen.blit(lose_surf,(0,0))
-                screen.blit(lose_text,(150,350))
+                screen.blit(lose_text,(150,700))
         # Updating display and limiting FPS
         pg.display.flip()
         clock.tick(60)
